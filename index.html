@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>szajz3er</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+      /* Tło z efektem rozmycia */
+      .bg-blur {
+        backdrop-filter: blur(12px);
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      /* Animacja spinnera */
+      .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+      }
+
+      /* Animacja spinnera */
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Efekty dla obrazka */
+      .avatar {
+        transition: transform 0.3s ease-in-out;
+      }
+      .avatar:hover {
+        transform: scale(1.05); /* Powiększenie avatara na hover */
+      }
+
+      /* Zmieniony układ przycisków na urządzeniach mobilnych */
+      @media (max-width: 768px) {
+        .btn {
+          width: 100%;
+        }
+      }
+
+      /* Ukryj zawartość strony do momentu jej załadowania */
+      .hidden {
+        display: none;
+      }
+
+    </style>
+  </head>
+
+  <body class="relative min-h-screen overflow-hidden" onclick="playMusic()">
+    <!-- 🔊 Muzyka (domyślnie pauzowana) -->
+    <audio id="background-music" preload="auto">
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- 🎥 Tło wideo z efektem rozmycia -->
+    <video autoplay muted loop playsinline class="fixed w-full h-full object-cover z-0">
+      <source src="background.mp4" type="video/mp4" />
+    </video>
+
+    <!-- 🌌 Nakładka z rozmyciem (blur) -->
+    <div class="absolute inset-0 bg-blur z-10"></div>
+
+    <!-- 📦 Preloader (spinner) -->
+    <div id="preloader" class="fixed inset-0 bg-black flex justify-center items-center z-50">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- 📦 Zawartość -->
+    <div id="content" class="relative z-20 flex items-center justify-center min-h-screen px-4 hidden">
+      <div class="max-w-md w-full text-center space-y-6">
+        <!-- Avatar -->
+        <img
+          src="avatar.jpg"
+          alt="Avatar"
+          class="w-28 h-28 rounded-full mx-auto border-4 border-white shadow-lg object-cover avatar"
+        />
+
+        <!-- Nick -->
+        <h1 class="text-3xl font-extrabold text-white flex items-center justify-center">
+            @szajz3er
+            <img src="emoji.gif" alt="Emoji" class="w-8 h-8 ml-2" />
+          </h1>
+          
+        <!-- Bio -->
+        <p class="text-gray-300">Kolor purpury
+            Śmieszne, że pieniądze potrafią rozgonić chmury</p>
+
+        <!-- Linki -->
+        <div class="space-y-4">
+            <a href="#" class="btn flex items-center justify-center gap-3 bg-black hover:bg-gray-800 transition px-4 py-3 rounded-xl text-white">
+                <i class="fab fa-instagram"></i> Instagram
+              </a>
+            <a href="#" class="btn flex items-center justify-center gap-3 bg-black hover:bg-gray-800 transition px-4 py-3 rounded-xl text-white">
+                <i class="fab fa-tiktok"></i> TikTok
+              </a>
+              <a href="#" class="btn flex items-center justify-center gap-3 bg-black hover:bg-gray-800 transition px-4 py-3 rounded-xl text-white">
+                <i class="fab fa-discord"></i> Discord
+              </a>
+
+              <a href="#" class="btn flex items-center justify-center gap-3 bg-black hover:bg-gray-800 transition px-4 py-3 rounded-xl text-white">
+                <i class="fab fa-youtube"></i> YouTube
+              </a>              
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Funkcja uruchamiająca muzykę po kliknięciu na stronę
+      function playMusic() {
+        var music = document.getElementById('background-music');
+        if (music.paused) {
+          music.play(); // Rozpoczęcie odtwarzania
+        }
+      }
+
+      // Funkcja ukrywająca preloader i pokazująca zawartość po załadowaniu strony
+      window.onload = function() {
+        setTimeout(function() {
+          document.getElementById('preloader').style.display = 'none'; // Ukryj preloader
+          document.getElementById('content').classList.remove('hidden'); // Pokaż zawartość
+        }, 3000); // Czas trwania spinnera - 3 sekundy
+      }
+    </script>
+  </body>
+</html>
