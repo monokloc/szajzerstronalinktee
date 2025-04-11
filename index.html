@@ -95,7 +95,22 @@
         }
       }
 
-      
+/* 🔥 Fade in animation */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fade-in 3s ease-out forwards; /* Zwiększono czas do 2 sekund */
+}
+
     </style>
   </head>
 
@@ -130,7 +145,7 @@
     <!-- 📦 Zawartość -->
     <div
       id="content"
-      class="relative z-20 flex items-center justify-center min-h-screen px-4 hidden"
+      class="relative z-20 flex items-center justify-center min-h-screen px-4 hidden fade-in"
     >
       <div class="max-w-md w-full text-center space-y-6">
         <!-- Avatar -->
@@ -177,7 +192,6 @@
         <div class="animated-text" id="exploding-text"></div>
       </div>
     </div>
-    
 
     <script>
       function playMusic() {
@@ -188,46 +202,46 @@
       }
 
       function createExplodingText(text) {
-  const container = document.getElementById("exploding-text");
-  if (!container) return;
-  container.innerHTML = "";
+        const container = document.getElementById("exploding-text");
+        if (!container) return;
+        container.innerHTML = "";
 
-  text.split("").forEach((char, i) => {
-    const span = document.createElement("span");
+        text.split("").forEach((char, i) => {
+          const span = document.createElement("span");
 
-    // Jeśli to jest spacja, dodajemy specjalny `span` dla niej
-    if (char === " ") {
-      const spaceSpan = document.createElement("span");
-      spaceSpan.innerHTML = "&nbsp;"; // Wstawienie spacji
-      container.appendChild(spaceSpan);
-      return; // Zakończ ten przebieg pętli
-    }
+          // Jeśli to jest spacja, dodajemy specjalny `span` dla niej
+          if (char === " ") {
+            const spaceSpan = document.createElement("span");
+            spaceSpan.innerHTML = "&nbsp;"; // Wstawienie spacji
+            container.appendChild(spaceSpan);
+            return; // Zakończ ten przebieg pętli
+          }
 
-    // Jeśli to jest inna litera, dodajemy normalny `span`
-    span.classList.add("animated-letter");
+          // Jeśli to jest inna litera, dodajemy normalny `span`
+          span.classList.add("animated-letter");
 
-    // losowe pozycje
-    const x = (Math.random() - 0.5) * 300;
-    const y = (Math.random() - 0.5) * 300;
+          // losowe pozycje
+          const x = (Math.random() - 0.5) * 300;
+          const y = (Math.random() - 0.5) * 300;
 
-    span.style.setProperty("--x", x.toFixed(2));
-    span.style.setProperty("--y", y.toFixed(2));
+          span.style.setProperty("--x", x.toFixed(2));
+          span.style.setProperty("--y", y.toFixed(2));
 
-    // opóźnienie animacji
-    span.style.animationDelay = `${1 + i * 0.05}s`;
+          // opóźnienie animacji
+          span.style.animationDelay = `${1 + i * 0.05}s`;
 
-    span.textContent = char;
-    container.appendChild(span);
-  });
-}
-
-
+          span.textContent = char;
+          container.appendChild(span);
+        });
+      }
 
       // po załadowaniu strony
       window.onload = function () {
         setTimeout(function () {
           document.getElementById("preloader").style.display = "none";
-          document.getElementById("content").classList.remove("hidden");
+          const content = document.getElementById("content");
+          content.classList.remove("hidden");
+          content.classList.add("fade-in");
           createExplodingText("Rzeźnik Pies");
         }, 3000); // 3 sekundy preloader
       };
