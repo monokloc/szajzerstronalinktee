@@ -251,7 +251,7 @@
         fetch("https://api.countapi.xyz/hit/9raq.netlify.app/visits")
           .then((res) => res.json())
           .then((data) => {
-            document.getElementById("counter").innerText = data.value + 57;
+            document.getElementById("counter").innerText = data.value;
           });
       };
     </script>
