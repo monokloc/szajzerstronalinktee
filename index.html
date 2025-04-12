@@ -53,7 +53,6 @@
         display: none;
       }
 
-      /* 🔤 Styl tekstu animowanego */
       .animated-text {
         display: inline-block;
         color: white;
@@ -95,22 +94,20 @@
         }
       }
 
-/* 🔥 Fade in animation */
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-.fade-in {
-  animation: fade-in 3s ease-out forwards; /* Zwiększono czas do 2 sekund */
-}
-
+      .fade-in {
+        animation: fade-in 3s ease-out forwards;
+      }
     </style>
   </head>
 
@@ -163,6 +160,16 @@
           <img src="emoji.gif" alt="Emoji" class="w-8 h-8 ml-2" />
         </h1>
 
+        <!-- 👁️ Licznik odwiedzin -->
+        <div class="flex items-center justify-center mt-2">
+          <div
+            class="inline-flex items-center gap-2 text-white border border-white rounded-xl px-3 py-1 bg-black bg-opacity-50 text-sm"
+          >
+            <i class="fas fa-eye"></i>
+            <span id="counter">58</span>
+          </div>
+        </div>
+
         <!-- Bio -->
         <p class="text-gray-300"></p>
 
@@ -209,25 +216,21 @@
         text.split("").forEach((char, i) => {
           const span = document.createElement("span");
 
-          // Jeśli to jest spacja, dodajemy specjalny `span` dla niej
           if (char === " ") {
             const spaceSpan = document.createElement("span");
-            spaceSpan.innerHTML = "&nbsp;"; // Wstawienie spacji
+            spaceSpan.innerHTML = "&nbsp;";
             container.appendChild(spaceSpan);
-            return; // Zakończ ten przebieg pętli
+            return;
           }
 
-          // Jeśli to jest inna litera, dodajemy normalny `span`
           span.classList.add("animated-letter");
 
-          // losowe pozycje
           const x = (Math.random() - 0.5) * 300;
           const y = (Math.random() - 0.5) * 300;
 
           span.style.setProperty("--x", x.toFixed(2));
           span.style.setProperty("--y", y.toFixed(2));
 
-          // opóźnienie animacji
           span.style.animationDelay = `${1 + i * 0.05}s`;
 
           span.textContent = char;
@@ -235,7 +238,6 @@
         });
       }
 
-      // po załadowaniu strony
       window.onload = function () {
         setTimeout(function () {
           document.getElementById("preloader").style.display = "none";
@@ -243,7 +245,14 @@
           content.classList.remove("hidden");
           content.classList.add("fade-in");
           createExplodingText("Rzeźnik Pies");
-        }, 3000); // 3 sekundy preloader
+        }, 3000);
+
+        // 👁️ Licznik odwiedzin (CountAPI)
+        fetch("https://api.countapi.xyz/hit/9raq.netlify.app/visits")
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("counter").innerText = data.value + 57;
+          });
       };
     </script>
   </body>
