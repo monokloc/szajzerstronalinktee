@@ -91,6 +91,17 @@
       .fade-in {
         animation: fade-in 3s ease-out forwards;
       }
+
+      body {
+  user-select: none; /* Blokuje zaznaczanie tekstu */
+}
+
+* {
+    -webkit-user-select: none; /* Blokuje zaznaczanie tekstu na WebKit, np. Chrome */
+    -moz-user-select: none; /* Blokuje zaznaczanie tekstu na Firefox */
+    -ms-user-select: none; /* Blokuje zaznaczanie tekstu na Internet Explorer */
+}
+
     </style>
   </head>
 
